@@ -1,0 +1,206 @@
+# ==============================================================================
+# TCT Bot Full Configuration File (tctfile)
+# Format: YAML
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# CORE SETTINGS
+# Basic identification and operation parameters for the bot.
+# ------------------------------------------------------------------------------
+# Unique identifier for this specific bot session/instance.
+SESSION_ID: "tct_tet1"
+
+# Timezone used for logging, scheduled tasks, and time-based commands.
+# Use standard tz database names (e.g., "Africa/Nairobi", "America/New_York").
+TIMEZONE: "Africa/Nairobi"
+
+# Set to true to hide verbose debug/trace logs and keep the console clean.
+FILTER_NOISE_LOGS: true
+
+# The character(s) used to trigger bot commands (e.g., ".help", "!ping").
+PREFIX: "."
+
+
+# ------------------------------------------------------------------------------
+# SERVER / DEPLOYMENT
+# Settings for the local server environment.
+# ------------------------------------------------------------------------------
+# The port on which the web dashboard and internal API will run.
+SERVER_PORT: 3003
+
+# Path for IPC sockets. 
+# NOTE: Leave this commented out unless you specifically require UNIX sockets.
+#UNIX_SOCKET_PATH: "/tmp/my_app_1.sock"
+
+
+# ------------------------------------------------------------------------------
+# EXTERNAL API KEYS
+# Credentials for third-party services. Keep these secure!
+# Only uncomment the lines if you are actively using these services.
+# ------------------------------------------------------------------------------
+#OPENWEATHER_API_KEY: "" # Required for weather-related commands
+#MISTRAL_API_KEY: ""     # Required for AI Chatbot commands (Currently unused)
+
+
+# ------------------------------------------------------------------------------
+# DATABASE SETTINGS
+# Advanced configuration for database connection and performance tuning.
+# ------------------------------------------------------------------------------
+DATABASE:
+  # SYNC_MODE: Controls how fast the bot writes to the database.
+  # If your bot is lagging, hanging, or CPU usage is high, adjust this.
+  #
+  # Options:
+  #   "OFF"    - Maximum Speed (God Mode). Instantly fixes lag on heavy bots.
+  #              Warning: Slight risk of DB corruption if the server loses power.
+  #   "NORMAL" - Balanced (Default). Good speed, safe from standard bot crashes.
+  #   "FULL"   - Maximum Safety. Very slow, not recommended for busy bots.
+  SYNC_MODE: "NORMAL"
+  
+  # Number of database operations to batch together before executing.
+  BATCH_SIZE: 300
+  
+  # How often to flush batched operations to the database (in milliseconds, or string like "5s").
+  FLUSH_INTERVAL: "5000"
+  
+  # Maximum memory the database can use for caching (Default: 134217728 = 128MB).
+  CACHE_MAX_BYTES: 134217728
+  
+  # Enable Write-Ahead Logging for better concurrency and performance.
+  USE_WAL: true
+  
+  # How long to wait when the database is locked before throwing an error (in milliseconds).
+  BUSY_TIMEOUT_MS: 15000
+
+
+# ==============================================================================
+# DEPRECATED: No longer used in newer versions - Use dash command instead
+#            Kept for backward compatibility with older versions
+# ==============================================================================
+DASHBOARD:
+  ENABLED: false
+  # IMPORTANT: Change these default credentials before deploying to production!
+  USER: "admin"
+  PASSWORD: "tct-99"
+
+# ------------------------------------------------------------------------------
+# CLOUDINARY INTEGRATION
+# Used for hosting and uploading media via URLs.
+# Uncomment and fill out if your bot processes external media uploads.
+# ------------------------------------------------------------------------------
+#CLOUDINARY:
+#  CLOUD_NAME: ""
+#  API_KEY: ""
+#  API_SECRET: ""
+
+
+# ------------------------------------------------------------------------------
+# MODERATION / LOCK SYSTEM
+# Rules and automated actions for managing group/chat behavior.
+# ------------------------------------------------------------------------------
+LOCK_SYSTEM:
+  # Number of warnings a user can receive before a penalty (kick/ban) is applied.
+  MAX_WARNS: 3
+  
+  # The message sent when a user is warned. 
+  # Available placeholders: {user}, {max_warns}, {remaining_warns}, {reason}
+  WARN_MESSAGE: "*⚠️WARN MESSAGE⚠️*\n\n*USER:* {user}\n*MAX WARNINGS:* {max_warns}\n*REMAINING WARNINGS:* {remaining_warns}\n*REASON:* {reason}"
+  
+  # Fallback reason if an admin doesn't provide one when warning.
+  DEFAULT_REASON: "Breaking group rules."
+  
+  # If true, the specific word/action that triggered the warning will be appended to the reason.
+  SHOW_TRIGGER_IN_REASON: true
+  
+  # Auto-delete the warning message from the chat after this many minutes.
+  DELETE_WARN_AFTER: 3
+
+
+# ------------------------------------------------------------------------------
+# MEDIA ASSETS
+# Links to images used for specific bot events (randomly selected from the lists).
+# ------------------------------------------------------------------------------
+ALIVE_IMAGES:
+  - "https://t-ct.org/media/alive.jpg"
+  - "https://t-ct.org/media/alive1.jpg"
+  - "https://t-ct.org/media/alive2.jpg"
+  - "https://t-ct.org/media/alive3.jpg"
+  - "https://t-ct.org/media/alive4.jpg"
+  - "https://t-ct.org/media/alive5.jpg"
+  - "https://t-ct.org/media/alive6.jpg"
+  - "https://t-ct.org/media/alive7.jpg"
+  - "https://t-ct.org/media/alive8.jpg"
+  - "https://t-ct.org/media/alive9.jpg"
+  - "https://t-ct.org/media/alive10.jpg"
+  - "https://t-ct.org/media/alive11.jpg"
+
+WELCOME_IMAGES:
+  - "https://t-ct.org/media/welcome1.jpg"
+  - "https://t-ct.org/media/welcome2.jpg"
+  - "https://t-ct.org/media/welcome3.jpg"
+  - "https://t-ct.org/media/welcome4.jpg"
+  - "https://t-ct.org/media/welcome5.jpg"
+  - "https://t-ct.org/media/welcome6.jpg"
+  - "https://t-ct.org/media/welcome7.jpg"
+  - "https://t-ct.org/media/welcome8.jpg"
+  - "https://t-ct.org/media/welcome9.jpg"
+
+
+# ------------------------------------------------------------------------------
+# SYSTEM OVERRIDES
+# Core network overrides. DO NOT change these unless you are operating behind
+# a specific corporate or systemic proxy that requires it.
+# ------------------------------------------------------------------------------
+#HTTP_PROXY: "none"
+#HTTPS_PROXY: "none"
+
+# Enable or disable logging to a file
+# true  -> logs will be written to a file
+# false -> logs will only appear in console or other handlers
+LOG_TO_FILE: false
+
+# Path to the log file where logs will be stored
+# Make sure the directory exists (e.g., "data/")
+# and that the application has write permissions
+LOG_FILE_PATH: "data/app.log"
+
+
+# Logging level controls the minimum severity of messages shown.
+# Possible values: "debug", "info", "warn", "error"
+
+# "debug" -> Development mode (lowest threshold).
+# Shows Debug, Info, Warn, and Error messages.
+# Use this when you want full visibility into everything.
+#LOG_LEVEL: "debug"
+
+# "info" -> Default mode.
+# Shows Info, Warn, and Error messages.
+# Hides debug spam, but still shows errors and important status updates.
+# Example: If an error occurs, it will still be shown even if set to "info".
+# This is the recommended setting for normal bot operation.
+LOG_LEVEL: "info"
+
+# "warn" -> Warning mode.
+# Shows only Warn and Error messages.
+# Hides general status updates, only surfaces potential issues.
+#LOG_LEVEL: "warn"
+
+# "error" -> Minimal mode.
+# Shows only Error messages.
+# Absolute minimum logging, only prints when something actually breaks.
+#LOG_LEVEL: "error"
+
+# ---------------------------
+# PostgreSQL Configuration
+# ---------------------------
+
+# Full PostgreSQL connection URL format:
+# postgresql://<username>:<password>@<host>:<port>/<database>
+
+# Example 1 (standard local database):
+# POSTGRES_URL: "postgresql://postgres:mysecretpassword@localhost:5432/mydatabase"
+
+# Sync interval (time is in SECONDS)
+# This controls how often the app syncs with the database
+# Example: 60 = every 1 minute
+# POSTGRES_SYNC_INTERVAL: 60

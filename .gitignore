@@ -1,0 +1,14 @@
+tree.txt
+.env
+critical_error.json
+notes
+
+data/
+logs/
+
+*.zip
+*.exe
+
+tct-linux
+tct-android-arm
+tct-android-arm64
